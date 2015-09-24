@@ -1,0 +1,48 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image: url("/i/background_linen160.png");
+}
+
+header{
+  min-height: 10px;
+}
+.pin-top{
+  position: fixed;
+  top: 0;
+  margin-top: 10px;
+}
+.pin-bottom{
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 10px;
+}
+
+a {
+  color: #065C27;
+}
+
+.row{
+  padding: 10px;
+}
+
+.sup{
+  vertical-align: super;
+  font-size: xx-small;
+}
+
+.btn-default{
+  font-weight: bold !important;
+  height: 3em;
+  line-height: 2.5em;
+}
+
+.btn{
+  margin-top: 10px;
+}
+
+.feature{
+  border-style: solid;
+  border-width: 5px;
+  border-radius: 18px;
+}
