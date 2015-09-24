@@ -36,14 +36,15 @@ var saveResource = function(event){
   // var parent = event.target.parent.value;
   var target = event.target.pageType.selectedOptions[0].value;
   var parent = event.target.parentPage.selectedOptions[0].value;
-  var category = event.target.category.value;
+  // var category = event.target.category.value;
   var user = Meteor.userId();
   var title = event.target.pagetitle.value;
   var body = event.target.pagebody.value;
   console.log(target);
   console.log(parent);
   // Meteor.call("insertResource", name, target, parent, category, user, title, body);
-  Resources.insert({name: name, target: target, parent: parent, category: category, user: user, title: title, body: body});
+  // Resources.insert({name: name, target: target, parent: parent, category: category, user: user, title: title, body: body});
+  Resources.insert({name: name, target: target, parent: parent, user: user, title: title, body: body});
 
   event.target.name.value = "";
   // event.target.anchor.value = '';

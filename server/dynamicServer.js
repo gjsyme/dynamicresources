@@ -16,8 +16,11 @@ Meteor.startup(function(){
   Meteor.publish("writeClick", function(target, user){
     Clicks.insert({user: user, target: target});
   });
-  Meteor.publish("insertResource", function(name, target, parent, category, user, title, body){
-    Resources.insert({name: name, target: target, parent: parent, category: category, user: user, title: title, body: body});
+  // Meteor.publish("insertResource", function(name, target, parent, category, user, title, body){
+  //   Resources.insert({name: name, target: target, parent: parent, category: category, user: user, title: title, body: body});
+  // });
+  Meteor.publish("insertResource", function(name, target, parent, user, title, body){
+    Resources.insert({name: name, target: target, parent: parent, user: user, title: title, body: body});
   });
   Meteor.publish("updateResource", function(id, name, target, parent, category, user, title, body){
     Resources.update({_id: id}, {$set: {name: name, target: target, parent: parent, category: category, user: user, title: title, body: body}});

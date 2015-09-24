@@ -57,7 +57,7 @@
         </select>
       </div>
     </div>
-    <input type="text" class="form-control" name="category" placeholder="id for other pages to show up on this new page">
+    <!-- <input type="text" class="form-control" name="category" placeholder="id for other pages to show up on this new page"> -->
     <input type="text" class="form-control" name="pagetitle" placeholder="title for page">
     <input type="text" class="form-control" name="pagebody" placeholder="body for page">
     <input type="submit" class="btn btn-default">
@@ -70,20 +70,13 @@
         <option value="{{this._id}}">{{this.name}} - {{this.target}} - {{this.title}}</option>
       {{/each}}
     </select>
-    <input type="submit" class="btn btn-danger">
+    <input type="submit" class="btn btn-danger" value="DELETE">
   </form>
 </template>
 
 <template name="buttonOption">
   <div class="col-xs-6">
     <a href="{{target}}/{{_id}}" class="btn btn-default btn-block">{{name}}</a>
-    <!-- This comment adds the delete buttons - make sure to take out the line above this one -->
-    <!-- <div class="col-xs-10">
-      <a href="{{target}}/{{_id}}" class="btn btn-default btn-block">{{name}}</a>
-    </div>
-    <div class="col-xs-2">
-      <button class="btn btn-danger btn-delete" name="delete" id="{{_id}}">Delete</button>
-    </div> -->
   </div>
 </template>
 
