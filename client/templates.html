@@ -1,16 +1,12 @@
 <template name="home">
-  {{#if currentUser}}
-    <h2>Home</h2>
-    <div class="row">
-      <h4 class="text-center">What are you looking for today? Select one of the options below:</h4>
-    </div>
-    <hr>
-    {{#each choices}}
-      {{> buttonOption}}
-    {{/each}}
-  {{else}}
-    {{>loginButtons}}
-  {{/if}}
+  <h2>Home</h2>
+  <div class="row">
+    <h4 class="text-center">What are you looking for today? Select one of the options below:</h4>
+  </div>
+  <hr>
+  {{#each choices}}
+    {{> buttonOption}}
+  {{/each}}
 </template>
 
 <template name="content">
@@ -25,27 +21,25 @@
 <template name="stub">
   <h1>{{title}}</h1>
   <p>{{body}}</p>
-  <hr>
-  <p>This is where there would be static content, if you were so inclined.</p>
-  <p>Typical implementation of this application would link out to existing pages on your own website, so this is an edge case of our demonstration that, due to responsible linking, will not drive a ton of traffic to a non-commercial website.</p>
+  <hr/>
+  <p>This kind of page could be built out to another templatized format which could be links and stuff, as makes sense</p>
 </template>
 
 <template name="addResource">
+  <h2>Add a resource</h2>
   <form class="add">
     <input type="text" class="form-control" name="name" placeholder="resource name">
-    <!-- <input type="text" class="form-control" name="anchor" placeholder="link target"> -->
     <div class="row">
       <div class="col-md-2"><label for="pageType">Type of Page</label></div>
       <div class="col-md-6">
         <select class="form-control" name="pageType">
           <option disabled="true" selected="true">Select Page Type</option>
-          <option value="stub">Static Page</option>
-          <option value="content">Content Page</option>
+          <option value="content">Intermediate Page (content): give more options under this one</option>
+          <option value="stub">End Page (stub): this is the last page, should link out to actual content</option>
         </select>
       </div>
     </div>
     <div class="row">
-      <!-- <input type="text" class="form-control" name="parent" placeholder="what page should this show up as an option for"> -->
       <div class="col-md-2"><label for="parentPage">Parent Page</label></div>
       <div class="col-md-6">
         <select class="form-control" name="parentPage">
@@ -57,14 +51,12 @@
         </select>
       </div>
     </div>
-    <!-- <input type="text" class="form-control" name="category" placeholder="id for other pages to show up on this new page"> -->
     <input type="text" class="form-control" name="pagetitle" placeholder="title for page">
     <input type="text" class="form-control" name="pagebody" placeholder="body for page">
     <input type="submit" class="btn btn-default">
   </form>
   <h2>Admin Resource Deletion</h2>
   <form class="delete-resource">
-    <!-- <input type="text" class="form-control" name="deleteTarget" placeholder="link destination to delete button for"> -->
     <select name="deletion">
       {{#each allPages}}
         <option value="{{this._id}}">{{this.name}} - {{this.target}} - {{this.title}}</option>
@@ -77,114 +69,5 @@
 <template name="buttonOption">
   <div class="col-xs-6">
     <a href="/{{target}}/{{_id}}" class="btn btn-default btn-block">{{name}}</a>
-  </div>
-</template>
-
-<template name="resourceView">
-  <h4>Resource</h4>
-  <div class="row">
-    <div class="col-xs-3"><p><strong>ID:</strong> {{_id}}</p></div>
-    <div class="col-xs-3"><p><strong>Name:</strong> {{name}}</p></div>
-    <div class="col-xs-3"><p><strong>Anchor:</strong> {{target}}</p></div>
-    <div class="col-xs-3"><p><strong>Parent Page:</strong> {{parent}}</p></div>
-  </div>
-  <div class="row">
-    <div class="col-xs-3"><p><strong>Category:</strong> {{category}}</p></div>
-    <div class="col-xs-3"><p><strong>Account:</strong> {{user}}</p></div>
-    <div class="col-xs-3"><p><strong>Page Title:</strong> {{title}}</p></div>
-    <div class="col-xs-3"><p><strong>Page Body:</strong> {{body}}</p></div>
-  </div>
-  <hr>
-</template>
-
-<template name="manageResources">
-  {{#each records}}
-    {{> manageResource}}
-  {{/each}}
-</template>
-
-<template name="manageResource">
-  <form>
-    <div class="row">
-      <div class="col-xs-3"><strong>ID:</strong><input type="text" value="{{_id}}" name="_id" disabled="true"></div>
-      <div class="col-xs-3"><strong>Name:</strong><input type="text" value="{{name}}" name="name"></div>
-      <div class="col-xs-3"><strong>Anchor:</strong><input type="text" value="{{target}}" name="target"></div>
-      <div class="col-xs-3"><strong>Parent:</strong><input type="text" value="{{parent}}" name="parent"></div>
-    </div>
-    <div class="row">
-      <div class="col-xs-3"><strong>Category:</strong><input type="text" value="{{category}}" name="category"></div>
-      <div class="col-xs-3"><strong>User:</strong><input type="text" value="{{user}}" name="user"></div>
-      <div class="col-xs-3"><strong>Page Title:</strong><input type="text" value="{{title}}" name="title"></div>
-      <div class="col-xs-3"><strong>Page Body:</strong><input type="text" value="{{body}}" name="body"></div>
-    </div>
-    <div class="row">
-      <div class="col-xs'3"><input type="submit" class="btn btn-primary"></div>
-    </div>
-    <hr>
-  </form>
-</template>
-
-<template name="clickView">
-  <h4>Click record</h4>
-  <div class="row">
-    <div class="col-xs-1">{{_id}}</div>
-    <div class="col-xs-1">{{user}}</div>
-    <div class="col-xs-1">{{target}}</div>
-  </div>
-</template>
-
-<template name="manageClick">
-  <form>
-    <div class="row">
-      <div class="col-xs-3"><input type="text" value="{{_id}}" name="_id" disabled="true"></div>
-      <div class="col-xs-3"><input type="text" value="{{user}}" name="user"></div>
-      <div class="col-xs-3"><input type="text" value="{{target}}" name="target"></div>
-      <div class="col-xs-1"><input type="submit" value="Update"></div>
-    </div>
-  </form>
-  <hr>
-</template>
-
-<template name="manageClicks">
-  <h2>Clicks</h2>
-  {{#each records}}
-    {{> manageClick}}
-  {{/each}}
-</template>
-
-<template name="listClicks">
-  <h2>Clicks per User</h2>
-  {{#each records}}
-    {{> listClick}}
-  {{/each}}
-</template>
-
-<template name="listClick">
-  <div class="row">
-    <div class="col-xs-3"><h3>{{user}}</h3></div>
-    <div class="col-xs-3"><p>{{count}}</p></div>
-  </div>
-  <hr>
-</template>
-
-<template name="reportClickCount">
-  <div class="row">
-    <div class="col-xs-6"><h4>User: {{currentUser.username}}</h4></div>
-    <div class="col-xs-3"><h4>{{records}}</h4></div>
-  </div>
-</template>
-
-<template name="datapage">
-  <h2>Resources</h2>
-  <div class="row">
-    {{#each records}}
-      {{> resourceView}}
-    {{/each}}
-  </div>
-  <h2>Clicks</h2>
-  <div class="row">
-    {{#each clickTracker}}
-      {{> clickView}}
-    {{/each}}
   </div>
 </template>

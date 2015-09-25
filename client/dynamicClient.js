@@ -1,6 +1,5 @@
 Tracker.autorun(function(){
   Meteor.subscribe("resources", Meteor.userId());
-  Meteor.subscribe("clicks", Meteor.userId());
 });
 
 Accounts.ui.config({
@@ -8,14 +7,8 @@ Accounts.ui.config({
 });
 
 var getOptions = function(resourceType){
-  //console.log("GetOptions: "+resourceType);
-  console.log(Meteor.userId());
-  if(Meteor.userId()){
-    console.log(Resources.find({parent: resourceType, user: Meteor.userId()}).fetch());
-    return Resources.find({parent: resourceType, user: Meteor.userId()});
-  }else{
-    return [];
-  }
+  console.log(Resources.find({parent: resourceType}).fetch());
+  return Resources.find({parent: resourceType});
 };
 
 Template.registerHelper('allPages', function(){
@@ -27,16 +20,10 @@ homeHelper.choices = getOptions("home");
 Template.home.helpers(homeHelper);
 
 var saveResource = function(event){
-  //console.log('in saveResource');
   event.preventDefault();
-  //console.log(event.target);
   var name = event.target.name.value;
-  //console.log(name);
-  // var target = event.target.anchor.value;
-  // var parent = event.target.parent.value;
   var target = event.target.pageType.selectedOptions[0].value;
   var parent = event.target.parentPage.selectedOptions[0].value;
-  // var category = event.target.category.value;
   var user = Meteor.userId();
   var title = event.target.pagetitle.value;
   var body = event.target.pagebody.value;
@@ -45,15 +32,11 @@ var saveResource = function(event){
   Meteor.subscribe("insertResource", name, target, parent, user, title, body);
 
   event.target.name.value = "";
-  // event.target.anchor.value = '';
-  // event.target.parent.value = '';
-  // event.target.category.value = '';
   event.target.pagetitle.value = '';
   event.target.pagebody.value = '';
 }
 var deleteResource = function(event){
   event.preventDefault();
-  // console.log(event.target.deletion.selectedOptions[0].value);
   Meteor.subscribe("removeResourceById", event.target.deletion.selectedOptions[0].value);
 }
 
