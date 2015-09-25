@@ -1,13 +1,8 @@
 Tracker.autorun(function(){
-  Meteor.subscribe("resources", Meteor.userId());
-});
-
-Accounts.ui.config({
-  passwordSignupFields: "USERNAME_ONLY"
+  Meteor.subscribe("resources");
 });
 
 var getOptions = function(resourceType){
-  console.log(Resources.find({parent: resourceType}).fetch());
   return Resources.find({parent: resourceType});
 };
 
@@ -19,17 +14,21 @@ var homeHelper = {};
 homeHelper.choices = getOptions("home");
 Template.home.helpers(homeHelper);
 
+Template.buttonOption.helpers({
+  'isLink': function(link){
+    if(link.indexOf("http")==0) return true;
+    return false;
+  }
+})
+
 var saveResource = function(event){
   event.preventDefault();
   var name = event.target.name.value;
-  var target = event.target.pageType.selectedOptions[0].value;
   var parent = event.target.parentPage.selectedOptions[0].value;
-  var user = Meteor.userId();
   var title = event.target.pagetitle.value;
   var body = event.target.pagebody.value;
-  console.log(target);
-  console.log(parent);
-  Meteor.subscribe("insertResource", name, target, parent, user, title, body);
+  Meteor.subscribe("insertResource", name, parent, title, body);
+
 
   event.target.name.value = "";
   event.target.pagetitle.value = '';
@@ -52,16 +51,11 @@ var updateResource = function(){
   var anchorString = event.target.target.value;
   var parentString = event.target.parent.value;
   var categoryString = event.target.category.value;
-  var userString = event.target.user.value;
   var titleString = event.target.title.value;
   var bodyString = event.target.body.value;
 
-  Meteor.subscribe("updateResource", idString, nameString, anchorString, parentString, categoryString, userString, titleString, bodyString);
+  Meteor.subscribe("updateResource", idString, nameString, anchorString, parentString, categoryString, titleString, bodyString);
 }
-
-var manageResourceEvents = {};
-manageResourceEvents["submit form"] = updateResource;
-Template.manageResource.events(manageResourceEvents);
 
 var deleteRecord = function(event){
   console.log("in deleteRecord");

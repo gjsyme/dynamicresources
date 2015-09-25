@@ -18,27 +18,10 @@
   {{/each}}
 </template>
 
-<template name="stub">
-  <h1>{{title}}</h1>
-  <p>{{body}}</p>
-  <hr/>
-  <p>This kind of page could be built out to another templatized format which could be links and stuff, as makes sense</p>
-</template>
-
 <template name="addResource">
   <h2>Add a resource</h2>
   <form class="add">
     <input type="text" class="form-control" name="name" placeholder="resource name">
-    <div class="row">
-      <div class="col-md-2"><label for="pageType">Type of Page</label></div>
-      <div class="col-md-6">
-        <select class="form-control" name="pageType">
-          <option disabled="true" selected="true">Select Page Type</option>
-          <option value="content">Intermediate Page (content): give more options under this one</option>
-          <option value="stub">End Page (stub): this is the last page, should link out to actual content</option>
-        </select>
-      </div>
-    </div>
     <div class="row">
       <div class="col-md-2"><label for="parentPage">Parent Page</label></div>
       <div class="col-md-6">
@@ -52,7 +35,8 @@
       </div>
     </div>
     <input type="text" class="form-control" name="pagetitle" placeholder="title for page">
-    <input type="text" class="form-control" name="pagebody" placeholder="body for page">
+    <input type="text" class="form-control" name="pagebody" placeholder="body for internal or link for external">
+    <p>LINKS MUST INCLUDE http (or https) at the start (so do the full http://www.spam.com)</p>
     <input type="submit" class="btn btn-default">
   </form>
   <h2>Admin Resource Deletion</h2>
@@ -68,6 +52,10 @@
 
 <template name="buttonOption">
   <div class="col-xs-6">
-    <a href="/{{target}}/{{_id}}" class="btn btn-default btn-block">{{name}}</a>
+    {{#if isLink body}}
+      <a href="{{body}}" class="btn btn-default btn-block">{{name}}</a>
+    {{else}}
+      <a href="/{{target}}/{{_id}}" class="btn btn-default btn-block">{{name}}</a>
+    {{/if}}
   </div>
 </template>
