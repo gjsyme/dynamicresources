@@ -12,6 +12,8 @@
 <template name="content">
   <h1>{{title}}</h1>
   <p>{{body}}</p>
+  <div class="col-sm-11"></div>
+  <div class="col-sm-1"><a href="/edit/{{id}}">Edit</a></div>
   <hr>
   {{#each children}}
     {{> buttonOption}}
@@ -55,7 +57,40 @@
     {{#if isLink body}}
       <a href="{{body}}" class="btn btn-default btn-block">{{name}}</a>
     {{else}}
-      <a href="/{{target}}/{{_id}}" class="btn btn-default btn-block">{{name}}</a>
+      <a href="/content/{{_id}}" class="btn btn-default btn-block">{{name}}</a>
     {{/if}}
   </div>
+</template>
+
+<template name="edit">
+  <h2>Edit resource</h2>
+  <form class="add">
+    <input type="hidden" value="{{record._id}}" name="id">
+    <input type="text" class="form-control" name="name" value="{{record.name}}">
+    <div class="row">
+      <div class="col-md-4"><label for="parentPage">Parent Page: (current value: {{record.parent}})</label></div>
+      <div class="col-md-6">
+        <select class="form-control" name="parentPage">
+          <option disabled="true" selected="true">Select Parent Page</option>
+          <option value="home">Home Page</option>
+          {{#each allPages}}
+            <option value="{{this._id}}">{{this.name}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+    <input type="text" class="form-control" name="pagetitle" value="{{record.title}}">
+    <input type="text" class="form-control" name="pagebody" value="{{record.body}}">
+    <p>LINKS MUST INCLUDE http (or https) at the start (so do the full http://www.spam.com)</p>
+    <input type="submit" class="btn btn-default">
+  </form>
+</template>
+
+<template name="editSelect">
+  <h2>Select an entry to edit</h2>
+  <ul>
+    {{#each resources}}
+      <li><a href="/edit/{{this._id}}">Edit {{this.name}}</a></li>
+    {{/each}}
+  </ul>
 </template>

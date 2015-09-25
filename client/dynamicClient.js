@@ -19,7 +19,12 @@ Template.buttonOption.helpers({
     if(link.indexOf("http")==0) return true;
     return false;
   }
-})
+});
+Template.editSelect.helpers({
+  'resources': function(){
+    return Resources.find();
+  }
+});
 
 var saveResource = function(event){
   event.preventDefault();
@@ -46,16 +51,18 @@ Template.addResource.events(resourceEvents);
 
 var updateResource = function(){
   event.preventDefault();
-  var idString = event.target._id.value;
+  var idString = event.target.id.value;
   var nameString = event.target.name.value;
-  var anchorString = event.target.target.value;
-  var parentString = event.target.parent.value;
-  var categoryString = event.target.category.value;
-  var titleString = event.target.title.value;
-  var bodyString = event.target.body.value;
+  var parentString = event.target.parentPage.selectedOptions[0].value;
+  var titleString = event.target.pagetitle.value;
+  var bodyString = event.target.pagebody.value;
 
-  Meteor.subscribe("updateResource", idString, nameString, anchorString, parentString, categoryString, titleString, bodyString);
+  Meteor.subscribe("updateResource", idString, nameString, parentString, titleString, bodyString);
 }
+
+var editEvents = {};
+editEvents["submit form"] = updateResource;
+Template.edit.events(editEvents);
 
 var deleteRecord = function(event){
   console.log("in deleteRecord");
@@ -66,14 +73,5 @@ var deleteRecord = function(event){
 var buttonEvents = {};
 buttonEvents["click .btn-delete"] = deleteRecord;
 Template.buttonOption.events(buttonEvents);
-
-var logout = function(){
-  Meteor.logout();
-  location.reload();
-}
-
-var logoutEvent = {};
-logoutEvent["click .btn-logout"] = logout;
-Template.body.events(logoutEvent);
 
 Template.body.helpers();

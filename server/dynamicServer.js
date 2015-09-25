@@ -7,8 +7,8 @@ Meteor.startup(function(){
     Resources.insert({name: name, parent: parent, title: title, body: body});
   });
 
-  Meteor.publish("updateResource", function(id, name, target, parent, category, title, body){
-    Resources.update({_id: id}, {$set: {name: name, target: target, parent: parent, category: category, title: title, body: body}});
+  Meteor.publish("updateResource", function(id, name, parent, title, body){
+    Resources.update({_id: id}, {$set: {name: name, parent: parent, title: title, body: body}});
   })
 
   Meteor.publish("removeResourceById", function(id){
