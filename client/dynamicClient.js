@@ -44,12 +44,13 @@ var saveResource = function(event){
   console.log(parent);
   // Meteor.call("insertResource", name, target, parent, category, user, title, body);
   // Resources.insert({name: name, target: target, parent: parent, category: category, user: user, title: title, body: body});
-  Resources.insert({name: name, target: target, parent: parent, user: user, title: title, body: body});
+  // Resources.insert({name: name, target: target, parent: parent, user: user, title: title, body: body});
+  Meteor.subscribe("insertResource", name, target, parent, user, title, body);
 
   event.target.name.value = "";
   // event.target.anchor.value = '';
   // event.target.parent.value = '';
-  event.target.category.value = '';
+  // event.target.category.value = '';
   event.target.pagetitle.value = '';
   event.target.pagebody.value = '';
 }

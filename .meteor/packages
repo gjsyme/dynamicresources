@@ -7,7 +7,6 @@
 iron:router
 accounts-password
 accounts-ui
-insecure
 meteorhacks:aggregate
 standard-minifiers
 meteor-base
