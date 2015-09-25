@@ -14,5 +14,4 @@ Meteor.startup(function(){
   Meteor.publish("removeResourceById", function(id){
     Resources.remove({"_id": id});
   });
-
 });
