@@ -42,9 +42,6 @@ var saveResource = function(event){
   var body = event.target.pagebody.value;
   console.log(target);
   console.log(parent);
-  // Meteor.call("insertResource", name, target, parent, category, user, title, body);
-  // Resources.insert({name: name, target: target, parent: parent, category: category, user: user, title: title, body: body});
-  // Resources.insert({name: name, target: target, parent: parent, user: user, title: title, body: body});
   Meteor.subscribe("insertResource", name, target, parent, user, title, body);
 
   event.target.name.value = "";
